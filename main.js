@@ -258,4 +258,5 @@ function mousePressed(){
 /*
 Food is defined in food.js
 Snake is defined in snake.js
+Wall and WallCell are defined in wall.js
 */
