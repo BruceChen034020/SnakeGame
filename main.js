@@ -16,6 +16,7 @@ var score; // points (integer)
 var bounceFactor = 0; // (ingeger)
 var thereIsaWall = false; // there is a wall (boolean)
 var wall1; // (Wall)
+var debug = 0; // (integer)
 
 /* p5 functions */
 function setup(){
@@ -74,8 +75,9 @@ function draw(){
     background(51);
     
     for(var i = 0;i < snake1.speedUpFactor; i++){
-        snake1.death();
-        console.log("(main:) bounceFactor = " + bounceFactor);
+        if(debug < 11) 
+            snake1.death();
+        
         snake1.update();
         snake1.show();
         food.show();
@@ -186,10 +188,53 @@ function keyPressed(){
         alert("請按上下左右箭頭");
     }
     snake1.showDir();
+    if(debug === 0 && keyCode === 66){
+        debug++;
+    }
+    if(debug === 1 && keyCode === 82){
+        debug++;
+    }
+    if(debug === 2 && keyCode === 85){
+        debug++;
+    }
+    if(debug === 3 && keyCode === 67){
+        debug++;
+    }
+    if(debug === 4 && keyCode === 69){
+        debug++;
+        alert("debug mode");
+    }
+    if(debug === 5 && keyCode === 67){
+        debug++;
+    }
+    if(debug === 6 && keyCode === 69){
+        debug++;
+    }
+    if(debug === 7 && keyCode === 76){
+        debug++;
+    }
+    if(debug === 8 && keyCode === 73){
+        debug++;
+    }
+    if(debug === 9 && keyCode === 78){
+        debug++;
+    }
+    if(debug === 10 && keyCode === 69){
+        debug++;
+        alert("debug mode (enternity)");
+    }
+    if(debug >= 5 && keyCode === 109){ // subtract
+        if(snake1.speedUpFactor > 1){
+            snake1.speedUpFactor--;
+        }
+    }
 }
 
 function mousePressed(){
-    
+  if(debug >= 5){
+    snake1.total++;
+    score += 15;
+  }
 }
 /* User-defined functions */
 // nothing
