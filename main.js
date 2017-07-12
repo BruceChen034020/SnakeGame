@@ -1,3 +1,19 @@
+/*
+作品名稱: Snake Game
+作者: 陳光穎 Bruce Chen
+聯絡方式
+  Facebook連結: https://www.facebook.com/bruce.chen.372
+  LINE ID: brucechen0
+最後修改日期: 2017/7/12
+版本: 1.0.0.1
+發表於: https://brucechen034020.github.io/
+程式碼尺度
+  N/A
+作者註解:
+  1. 如本網頁有 bug 請用 Facebook(Messenger) 通知 Bruce Chen，謝謝。
+  2. 如有任何建議，請用 Facebook(Messenger) 通知 Bruce Chen，謝謝。
+  */
+
 /* Global variables */
 var snake1; // (Snake)
 var scl = 10; // the size of a grid (integer)
