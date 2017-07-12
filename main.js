@@ -50,7 +50,7 @@ function setup(){
     label4 = document.createElement("label");
     document.body.appendChild(label4);
     label4.innerHTML = "0 points";
-    label4.style.fontSize = "24px";
+    label4.style.fontSize = "20px";
 
     score = 0;
 
@@ -189,7 +189,7 @@ function keyPressed(){
 }
 
 function mousePressed(){
-
+    
 }
 /* User-defined functions */
 // nothing
