@@ -40,7 +40,7 @@ function setup(){
 
     createCanvas(600, 600);
     snake1 = new Snake();
-    frameRate(3);
+    frameRate(10);
     food = new Food();
     food.pickLocation();
     timer1 = timer1Reset;
