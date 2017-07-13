@@ -18,10 +18,16 @@ function Wall(){
                 move = false;
             }*/
             for(var j = 0; j < snake1.tail.length; j++){
-                if(this.wall[i].dir.y === 1 && snake1.tail[j].x === pos.x && snake1.tail[j].y === pos.y+20){
+                if(this.wall[i].dir.y === 1 && snake1.tail[j].x === pos.x && snake1.tail[j].y === pos.y+2*scl){
                     move = false;
                 }
-                if(this.wall[i].dir.y === -1 && snake1.tail[j].x === pos.x && snake1.tail[j].y === pos.y-20){
+                if(this.wall[i].dir.y === 1 && snake1.tail[j].x === pos.x && snake1.tail[j].y === pos.y+scl){
+                    move = false;
+                }
+                if(this.wall[i].dir.y === -1 && snake1.tail[j].x === pos.x && snake1.tail[j].y === pos.y-2*scl){
+                    move = false;
+                }
+                if(this.wall[i].dir.y === -1 && snake1.tail[j].x === pos.x && snake1.tail[j].y === pos.y-scl){
                     move = false;
                 }
             }
