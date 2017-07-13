@@ -5,7 +5,7 @@
   Facebook連結: https://www.facebook.com/bruce.chen.372
   LINE ID: brucechen0
 最後修改日期: 2017/7/13
-版本: 1.0.0.4
+版本: 1.0.0.5
 發表於: https://brucechen034020.github.io/
 程式碼尺度
   N/A
@@ -33,6 +33,9 @@ var bounceFactor = 0; // (integer)
 var thereIsaWall = false; // there is a wall (boolean)
 var wall1; // (Wall)
 var debug = 0; // (integer)
+var frameNumber = 0; // number of frames until a tick of the clock (integer)
+var basicFrameRate = 10; // (integer)
+var speedUpFactorMax = 7; // the maximum value of Snake.speedUpFactor (integer)
 
 /* p5 functions */
 function setup(){
@@ -78,20 +81,25 @@ function setup(){
 }
 
 function draw(){
-    if(snake1.speedUpFactor > 11){
-        snake1.speedUpFactor = 11;
+    if(snake1.speedUpFactor > speedUpFactorMax){
+        snake1.speedUpFactor = speedUpFactorMax;
     }
     if(timerLocked === false){
+      if(frameNumber === 0){
         timer1 -= 1;
         timer2 -= 1;
         timer3 -= 1;
         timer_tmp -= 1;
+        frameNumber = snake1.speedUpFactor;
+      }
+      frameNumber--;
     }
 
     background(51);
     
-    for(var i = 0;i < snake1.speedUpFactor; i++){
-        if(debug < 11) 
+    frameRate(basicFrameRate*snake1.speedUpFactor);
+
+    if(debug < 11) 
             snake1.death();
         
         snake1.update();
@@ -104,8 +112,7 @@ function draw(){
             timer3 = timer3Reset;
             score += 15;
         }
-    }
-    
+
     keyLocked = false;
 
     if(thereIsaWall){
@@ -146,7 +153,7 @@ function draw(){
 
     /* Showing score */
     label4.innerHTML = score + " points, " + "Speed: " + snake1.speedUpFactor;
-    if(snake1.speedUpFactor === 11){
+    if(snake1.speedUpFactor === speedUpFactorMax){
         label4.innerHTML += "(max)";
     }
     label4.innerHTML += ", 牆反彈次數: " + bounceFactor;
