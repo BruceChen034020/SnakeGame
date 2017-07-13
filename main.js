@@ -5,7 +5,7 @@
   Facebook連結: https://www.facebook.com/bruce.chen.372
   LINE ID: brucechen0
 最後修改日期: 2017/7/13
-版本: 1.0.0.5
+版本: 1.0.0.6
 發表於: https://brucechen034020.github.io/
 程式碼尺度
   N/A
@@ -116,7 +116,9 @@ function draw(){
     keyLocked = false;
 
     if(thereIsaWall){
-        wall1.update();
+        if(frameNumber === 0)
+            wall1.update();
+        
         wall1.show();
     }
 
