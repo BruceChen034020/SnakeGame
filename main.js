@@ -5,7 +5,7 @@
   Facebook連結: https://www.facebook.com/bruce.chen.372
   LINE ID: brucechen0
 最後修改日期: 2017/7/13
-版本: 1.0.0.3
+版本: 1.0.0.4
 發表於: https://brucechen034020.github.io/
 程式碼尺度
   N/A
@@ -22,14 +22,14 @@ var keyLocked; // if this value is true, all keys are locked (boolean)
 var timerLocked; // if this value is true, all timers are stopped (boolean)
 var timer1; // deciseconds to changing the location of the food (integer)
 var timer2; // deciseconds to speeding up the snake (integer)
-var timer3; // diciseconds to moving the walls (ingeger)
+var timer3; // diciseconds to moving the walls (integer)
 var timer_tmp = 0; // (integer)
 var label1, label2, label3, label4; // (Label)
 var timer1Reset = 50; // (integer)
 var timer2Reset = 300; // (integer)
 var timer3Reset = 150; // (integer)
 var score; // points (integer)
-var bounceFactor = 0; // (ingeger)
+var bounceFactor = 0; // (integer)
 var thereIsaWall = false; // there is a wall (boolean)
 var wall1; // (Wall)
 var debug = 0; // (integer)
