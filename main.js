@@ -5,7 +5,7 @@
   Facebook連結: https://www.facebook.com/bruce.chen.372
   LINE ID: brucechen0
 最後修改日期: 2017/7/13
-版本: 1.0.0.2
+版本: 1.0.0.3
 發表於: https://brucechen034020.github.io/
 程式碼尺度
   N/A
@@ -40,7 +40,7 @@ function setup(){
 
     createCanvas(600, 600);
     snake1 = new Snake();
-    frameRate(10);
+    frameRate(3);
     food = new Food();
     food.pickLocation();
     timer1 = timer1Reset;
@@ -201,7 +201,7 @@ function keyPressed(){
         snake1.dir(1, 0);
         keyLocked = true;
     }else{
-        alert("請按上下左右箭頭");
+        //alert("請按上下左右箭頭");
     }
     snake1.showDir();
     if(debug === 0 && keyCode === 66){
