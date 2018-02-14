@@ -76,7 +76,7 @@ function Snake(){
                   }
                   console.log(data);
                   ref.set(data);
-                  setTimeout(function(){ alert('恭喜你破紀錄了! Congratulations! You broke the record!\r\nNew record: ' + highestScore + 'points by ' + highestScoreMaker );}, 0);
+                  setTimeout(function(){ alert('恭喜你破紀錄了! Congratulations! You broke the record!\r\nNew record: ' + highestScore + ' points by ' + highestScoreMaker );}, 0);
                 }
                 console.log("Game over (hits hits own tail)");
                 console.log("Current location = " + this.x + ", " + this.y);
@@ -126,7 +126,7 @@ function Snake(){
                   }
                   console.log(data);
                   ref.set(data);
-                  setTimeout(function(){ alert('恭喜你破紀錄了! Congratulations! You broke the record!\r\nNew record: ' + highestScore + 'points by ' + highestScoreMaker );}, 0);
+                  setTimeout(function(){ alert('恭喜你破紀錄了! Congratulations! You broke the record!\r\nNew record: ' + highestScore + ' points by ' + highestScoreMaker );}, 0);
                 }
                 console.log("Game over (hits the wall)");
                 console.log("Current location = " + this.x + ", " + this.y);
