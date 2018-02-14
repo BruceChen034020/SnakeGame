@@ -4,9 +4,10 @@
 聯絡方式
   Facebook連結: https://www.facebook.com/bruce.chen.372
   LINE ID: brucechen0
-最後修改日期: 
+最後修改日期:
   Game content: 2017/7/13
   English translation: 2018/2/14
+  Highest score recod feature: 2018/2/14
 版本: 1.0.0.6
 發表於: https://brucechen034020.github.io/
 程式碼尺度
@@ -39,9 +40,46 @@ var frameNumber = 0; // number of frames until a tick of the clock (integer)
 var basicFrameRate = 10; // (integer)
 var speedUpFactorMax = 7; // the maximum value of Snake.speedUpFactor (integer)
 
+var ip; // IP address of the client (string)
+var highestScore; // global highest score (int)
+var highestScoreMaker; // (string)
+
+var textBox1; // name (textarea)
+var button1; // set name (button)
+
 /* p5 functions */
 function setup(){
+  $('body').on('contextmenu', 'canvas', function(e){ return false; });
+
+  $.getJSON('https://freegeoip.net/json/', function(data) {
+    console.log(JSON.stringify(data, null, 2));
+    var userName = data['ip']
+    userName += ' (' + (data['country_name']) + ')';
+    if(localStorage.getItem("name") == null || localStorage.getItem("name") == undefined)
+      localStorage.setItem("name", userName);
+    ip = userName.replace('.', '-');
+    ip = ip.replace('.', '-');
+    ip = ip.replace('.', '-');
+    ip = ip.replace('.', '-');
+    ip = ip.replace(' ', '-');
+    ip = ip.replace('(', '');
+    ip = ip.replace(')', '');
+    ip = '-' + ip;
+  });
+
     timerLocked = true;
+
+    label5 = createElement('label', 'Your name: ');
+    label5.parent(document.body);
+
+    textBox1 = createInput('');
+
+    setTimeout(function(){ textBox1.value(localStorage.getItem('name')); }, 3000);
+
+    button1 = createButton("Set");
+    button1.mousePressed(button1_Clicked);
+
+    createP('');
 
     createCanvas(600, 600);
     snake1 = new Snake();
@@ -78,6 +116,34 @@ function setup(){
 
     wall1 = new Wall();
 
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDbUVF1YR_bWAU7FT1FjyFfNQJSLFxUa9U",
+      authDomain: "snakegame-ec28c.firebaseapp.com",
+      databaseURL: "https://snakegame-ec28c.firebaseio.com",
+      projectId: "snakegame-ec28c",
+      storageBucket: "snakegame-ec28c.appspot.com",
+      messagingSenderId: "1061325859072"
+    };
+    firebase.initializeApp(config);
+    database = firebase.database();
+
+    /* Set ref.on */
+    var ref2 = database.ref('highest');
+    ref2.on('value', gotData2, errData2);
+    //var data2 = {Name: 'Anonymous', Score: 0}
+    //ref2.set(data2);
+
+    /* send online message */
+    setTimeout(function(){
+      var ref1 = database.ref('online/' + ip);
+      var now = new Date();
+      var data = {name: localStorage.getItem('name'),
+                time: now.toString()};
+      ref1.set(data);
+    }, 3000);
+
+
     /* Welcome message */
     alert("歡迎來玩貪吃蛇遊戲。\r\n白色是蛇。紅色是食物。灰色是牆，邊界也是牆。\r\n本遊戲太久沒吃到食物會有懲罰。5秒沒吃到食物，食物會跑掉。15秒沒吃到食物，牆壁會移動。30秒沒吃到食物，蛇會加速，並且扣200分。\r\n所以趕快去吃食物吧! 加油!\r\n除了懲罰性加速外，也能自願性加速。連按同一個方向鍵2次可自願加速。\r\nWelcome to the Snake Game.\r\nWhite is the snake. Red is the food. Gray is the wall, and so are the borders.\r\nYou will be punished if you don’t eat any food for too long. If you haven’t eaten any food for 5 seconds, the food will go away. If you haven’t eaten any food for 15 seconds, the walls will move towards you. If you haven’t eaten any food for 30 seconds, the snake will be accelerated, and you will be taken 200 points off.\r\nSo, go eat the food!\r\nBesides being punished, you can accelerate your snake voluntarily by continuously pressing the same key 2 times.");
 }
@@ -98,12 +164,12 @@ function draw(){
     }
 
     background(51);
-    
+
     frameRate(basicFrameRate*snake1.speedUpFactor);
 
-    if(debug < 11) 
+    if(debug < 11)
             snake1.death();
-        
+
         snake1.update();
         snake1.show();
         food.show();
@@ -120,7 +186,7 @@ function draw(){
     if(thereIsaWall){
         if(frameNumber === 0)
             wall1.update();
-        
+
         wall1.show();
     }
 
@@ -161,7 +227,7 @@ function draw(){
         label4.innerHTML += "(max)";
     }
     label4.innerHTML += ", 牆反彈次數: " + bounceFactor;
-    
+
     if(timer_tmp <= 0)
       if(score < 0){
         label4.style.color = "red";

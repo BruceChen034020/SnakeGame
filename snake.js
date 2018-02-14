@@ -63,7 +63,21 @@ function Snake(){
             if(d < 1){
                 var scoree = score;
                 console.log("i = " + i + " this.tail length = " + this.tail.length);
-                setTimeout(function(){ alert("Game Over\r\n" + scoree + " points"); }, 0);
+                setTimeout(function(){ alert("Game Over\r\n" + scoree + " points.\r\nYour highest score record: " + localStorage.getItem("score")
+                  + " points.\r\nGlobal highest score record: " + highestScore + ' points by ' + highestScoreMaker); }, 0);
+                if(score > localStorage.getItem("score")){
+                  localStorage.setItem("score", scoree);
+                }
+                if(highestScore < score){
+                  var ref = database.ref('highest');
+                  var data = {
+                    Name: localStorage.getItem("name"),
+                    Score: scoree
+                  }
+                  console.log(data);
+                  ref.set(data);
+                  setTimeout(function(){ alert('恭喜你破紀錄了! Congratulations! You broke the record!\r\nNew record: ' + highestScore + 'points by ' + highestScoreMaker );}, 0);
+                }
                 console.log("Game over (hits hits own tail)");
                 console.log("Current location = " + this.x + ", " + this.y);
                 console.log("Snake.total = " + this.total);
@@ -82,7 +96,7 @@ function Snake(){
                 timer3 = timer3Reset;
                 timerLocked = true;
                 score = 0;
-                
+
                 bounceFactor = 0;
                 wall1.Reset();
 
@@ -91,15 +105,29 @@ function Snake(){
         }
 
         /* whether the snake hits the wall */
-        
+
         for(var i = 0; i < wall1.wall.length; i++){
-            
+
             var pos = wall1.wall[i].Location;
             var d = dist(this.x, this.y, pos.x, pos.y);
             if(d < 1){
                 var scoree = score;
                 console.log("i = " + i + " this.tail length = " + this.tail.length);
-                setTimeout(function(){ alert("Game Over\r\n" + scoree + " points"); }, 0);
+                setTimeout(function(){ alert("Game Over\r\n" + scoree + " points.\r\nYour highest score record: " + localStorage.getItem("score")
+                  + " points.\r\nGlobal highest score record: " + highestScore + ' points by ' + highestScoreMaker); }, 0);
+                if(score > localStorage.getItem("score")){
+                    localStorage.setItem("score", scoree);
+                }
+                if(highestScore < score){
+                  var ref = database.ref('highest');
+                  var data = {
+                    Name: localStorage.getItem("name"),
+                    Score: scoree
+                  }
+                  console.log(data);
+                  ref.set(data);
+                  setTimeout(function(){ alert('恭喜你破紀錄了! Congratulations! You broke the record!\r\nNew record: ' + highestScore + 'points by ' + highestScoreMaker );}, 0);
+                }
                 console.log("Game over (hits the wall)");
                 console.log("Current location = " + this.x + ", " + this.y);
                 console.log("Snake.total = " + this.total);
@@ -123,7 +151,7 @@ function Snake(){
                 console.log("bounceFactor = " + bounceFactor);
                 wall1.Reset();
                 console.log("bounceFactor = " + bounceFactor);
-                
+
                 return true;
             }
         }
